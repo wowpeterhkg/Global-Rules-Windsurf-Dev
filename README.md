@@ -4,7 +4,7 @@ A comprehensive, unified framework for AI software development teams combining q
 
 ## Overview
 
-This repository contains **20 streamlined rules** that merge the Universal AI Team Rulebook with enterprise-grade development standards. The framework ensures consistent, high-quality development across AI teams while maintaining security, traceability, and collaboration excellence.
+This repository contains **22 streamlined rules** that merge the Universal AI Team Rulebook with enterprise-grade development standards. The framework ensures consistent, high-quality development across AI teams while maintaining security, traceability, and collaboration excellence.
 
 ## Rule Structure
 
