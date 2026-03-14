@@ -45,7 +45,7 @@ Before installing, ensure you have:
 Open Terminal and run:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-org/Global-Rules/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/wowpeterhkg/Global-Rules-Windsurf-Dev/main/scripts/install.sh | bash
 ```
 
 ### Windows (One-Line Install)
@@ -53,10 +53,9 @@ curl -sSL https://raw.githubusercontent.com/your-org/Global-Rules/main/scripts/i
 Open PowerShell as Administrator and run:
 
 ```powershell
-irm https://raw.githubusercontent.com/your-org/Global-Rules/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/wowpeterhkg/Global-Rules-Windsurf-Dev/main/scripts/install.ps1 | iex
 ```
 
-> **Note**: Replace `your-org` with the actual GitHub organization or username hosting the repository.
 
 ---
 
@@ -81,7 +80,7 @@ cd ~/.windsurf/global-rules
 #### Step 3: Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/Global-Rules.git .
+git clone https://github.com/wowpeterhkg/Global-Rules-Windsurf-Dev.git .
 ```
 
 > **Note**: The `.` at the end clones directly into the current directory.
@@ -130,7 +129,7 @@ cd ~/.config/windsurf/global-rules
 #### Step 3: Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/Global-Rules.git .
+git clone https://github.com/wowpeterhkg/Global-Rules-Windsurf-Dev.git .
 ```
 
 #### Step 4: Run the Installation Script
@@ -174,7 +173,7 @@ Set-Location "$env:APPDATA\Windsurf\global-rules"
 #### Step 3: Clone the Repository
 
 ```powershell
-git clone https://github.com/your-org/Global-Rules.git .
+git clone https://github.com/wowpeterhkg/Global-Rules-Windsurf-Dev.git .
 ```
 
 #### Step 4: Run the Installation Script
@@ -221,7 +220,7 @@ The installation script automatically creates a `.windsurfrules` file. Windsurf 
 
 1. Open a new Windsurf chat/conversation
 2. Ask: "What rules are you following?"
-3. The AI should reference the 25 development rules
+3. The AI should reference the 22 development rules (00-21)
 
 ---
 
@@ -290,14 +289,14 @@ Get-ChildItem "$env:APPDATA\Windsurf\global-rules\.users\"
 
 ### Expected Output
 
-You should see 25 rule files (00-24) in the `rules/` directory:
+You should see 22 rule files (00-21) in the `rules/` directory:
 
 ```
-00-foundations.md
+00-quality-over-speed.md
 01-single-source-truth.md
 02-team-workflow.md
 ...
-24-async-events.md
+21-documentation.md
 ```
 
 ---
@@ -388,14 +387,61 @@ If you encounter issues not covered here:
 
 ## Updating
 
-### Check for Updates
+### Quick Update (Recommended)
+
+Use the built-in update script for automatic updates with backup:
+
+#### MacOS/Linux
+
+```bash
+cd ~/.windsurf/global-rules
+./scripts/update.sh
+```
+
+#### Windows
+
+```powershell
+Set-Location "$env:APPDATA\Windsurf\global-rules"
+.\scripts\update.ps1
+```
+
+### Update Script Features
+
+The update script automatically:
+- ✅ Checks for available updates
+- ✅ Shows what's new before updating
+- ✅ Backs up your user profiles and team files
+- ✅ Stashes any local changes
+- ✅ Pulls the latest version
+- ✅ Restores your local changes
+- ✅ Shows the changelog
+
+### Update Script Options
+
+#### Windows PowerShell Options
+
+```powershell
+# Force update without confirmation
+.\scripts\update.ps1 -Force
+
+# Skip backup (not recommended)
+.\scripts\update.ps1 -NoBackup
+
+# Combine options
+.\scripts\update.ps1 -Force -NoBackup
+```
+
+### Manual Update (Alternative)
+
+If you prefer manual control:
 
 #### MacOS/Linux
 
 ```bash
 cd ~/.windsurf/global-rules
 git fetch origin
-git log HEAD..origin/main --oneline
+git log HEAD..origin/main --oneline  # See what's new
+git pull origin main
 ```
 
 #### Windows
@@ -403,25 +449,8 @@ git log HEAD..origin/main --oneline
 ```powershell
 Set-Location "$env:APPDATA\Windsurf\global-rules"
 git fetch origin
-git log HEAD..origin/main --oneline
-```
-
-### Apply Updates
-
-#### MacOS/Linux
-
-```bash
-cd ~/.windsurf/global-rules
+git log HEAD..origin/main --oneline  # See what's new
 git pull origin main
-./scripts/install.sh --update
-```
-
-#### Windows
-
-```powershell
-Set-Location "$env:APPDATA\Windsurf\global-rules"
-git pull origin main
-.\scripts\install.ps1 -Update
 ```
 
 ### Version History
@@ -473,10 +502,10 @@ global-rules/
 ├── SETUP-GUIDE.md           # This file
 ├── VERSION                   # Current version
 ├── .windsurfrules           # Windsurf integration
-├── rules/                    # 25 rule files
-│   ├── 00-foundations.md
+├── rules/                    # 22 rule files
+│   ├── 00-quality-over-speed.md
 │   ├── 01-single-source-truth.md
-│   └── ... (00-24)
+│   └── ... (00-21)
 ├── scripts/
 │   ├── install.sh           # MacOS/Linux installer
 │   └── install.ps1          # Windows installer
