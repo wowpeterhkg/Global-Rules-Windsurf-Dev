@@ -19,6 +19,11 @@ VERSION_FILE="$PROJECT_ROOT/VERSION"
 USERS_DIR="$PROJECT_ROOT/.users"
 TEAMS_DIR="$PROJECT_ROOT/.teams"
 
+# Windsurf Global Rules paths (dynamic based on current user)
+WINDSURF_MEMORIES_DIR="$HOME/.codeium/windsurf/memories"
+WINDSURF_RULES_REF_DIR="$WINDSURF_MEMORIES_DIR/rules-reference"
+WINDSURF_GLOBAL_RULES_FILE="$WINDSURF_MEMORIES_DIR/global_rules.md"
+
 # Helper functions
 print_header() {
     echo -e "${BLUE}========================================${NC}"
@@ -46,7 +51,81 @@ create_directories() {
     mkdir -p "$TEAMS_DIR"
     mkdir -p "$PROJECT_ROOT/.windsurf/workflows"
     
+    # Create Windsurf global rules directories
+    mkdir -p "$WINDSURF_MEMORIES_DIR"
+    mkdir -p "$WINDSURF_RULES_REF_DIR"
+    
     print_success "Directory structure created"
+}
+
+# Install Windsurf Global Rules
+install_windsurf_global_rules() {
+    print_header "Installing Windsurf Global Rules"
+    
+    # Copy all rule files to rules-reference folder
+    local rules_source_dir="$PROJECT_ROOT/rules"
+    if [ -d "$rules_source_dir" ]; then
+        cp "$rules_source_dir"/*.md "$WINDSURF_RULES_REF_DIR/" 2>/dev/null
+        local rule_count=$(ls -1 "$WINDSURF_RULES_REF_DIR"/*.md 2>/dev/null | wc -l)
+        print_success "Copied $rule_count rule files to rules-reference"
+    else
+        print_warning "Rules source directory not found: $rules_source_dir"
+    fi
+    
+    # Create global_rules.md index file
+    cat > "$WINDSURF_GLOBAL_RULES_FILE" << 'EOF'
+# Global Development Rules
+
+Follow these rules for ALL projects. For detailed guidance, read the individual rule files.
+
+**Repository:** https://github.com/wowpeterhkg/Global-Rules-Windsurf-Dev
+
+## Rule Index (00-21)
+
+Read detailed rules from: `~/.codeium/windsurf/memories/rules-reference/`
+
+| Rule | File | Summary |
+|------|------|---------|
+| 00 | `00-quality-over-speed.md` | Correct architecture over shortcuts |
+| 01 | `01-single-source-truth.md` | One authoritative planning location |
+| 02 | `02-team-workflow.md` | Team tracking + Solo Mode |
+| 03 | `03-work-boundaries.md` | Before/During/After work checklists |
+| 04 | `04-regression-protection.md` | Baseline before changes |
+| 05 | `05-breaking-changes.md` | Clean breaks over compatibility hacks |
+| 06 | `06-code-cleanliness.md` | No dead code, tracked TODOs |
+| 07 | `07-ask-questions-early.md` | Never guess on major decisions |
+| 08 | `08-quick-reference.md` | At-a-glance summary |
+| 09 | `09-communication.md` | Clear, direct, actionable |
+| 10 | `10-code-generation.md` | Runnable code with all deps |
+| 11 | `11-security.md` | OWASP Top 10, AES-256, TLS 1.2+ |
+| 12 | `12-error-handling.md` | Fail-secure, structured logging |
+| 13 | `13-tool-usage.md` | Strategic tool selection |
+| 14 | `14-architecture.md` | Truthseeker mindset, ADRs |
+| 15 | `15-dependencies.md` | Well-maintained packages only |
+| 16 | `16-code-review.md` | Security-focused reviews |
+| 17 | `17-testing.md` | Minimal mocking, explicit sync |
+| 18 | `18-development-workflow.md` | Versioning, changelog, CI/CD |
+| 19 | `19-async-events.md` | Never time-based synchronization |
+| 20 | `20-infrastructure.md` | Docker, databases, port selection |
+| 21 | `21-documentation.md` | docs/ folder structure |
+
+## Quick Reminders
+
+**Before Starting:** Read SSOT, check handoff notes, understand objective
+
+**Security:** Parameterized queries, validate inputs, no hardcoded secrets
+
+**Infrastructure:** Docker, PostgreSQL/Redis/LevelDB, confirm ports
+
+**Before Finishing:** Verify no regressions, update docs, create handoff notes
+EOF
+    
+    print_success "Global rules index created at: $WINDSURF_GLOBAL_RULES_FILE"
+    
+    echo ""
+    echo -e "${BLUE}Windsurf Global Rules installed to:${NC}"
+    echo "  • Global rules: $WINDSURF_GLOBAL_RULES_FILE"
+    echo "  • Rule files:   $WINDSURF_RULES_REF_DIR"
 }
 
 # Get current version
@@ -367,6 +446,7 @@ main() {
     
     # Installation steps
     create_directories
+    install_windsurf_global_rules
     register_user
     update_user_registry
     copy_project_files

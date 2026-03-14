@@ -32,9 +32,13 @@ Before installing, ensure you have:
 
 | Platform | Global Rules Location |
 |----------|----------------------|
-| **MacOS** | `~/.windsurf/global-rules/` or `~/Library/Application Support/Windsurf/global-rules/` |
-| **Linux** | `~/.config/windsurf/global-rules/` or `~/.windsurf/global-rules/` |
-| **Windows** | `%APPDATA%\Windsurf\global-rules\` or `%USERPROFILE%\.windsurf\global-rules\` |
+| **MacOS** | `~/.codeium/windsurf/memories/` |
+| **Linux** | `~/.codeium/windsurf/memories/` |
+| **Windows** | `%USERPROFILE%\.codeium\windsurf\memories\` |
+
+The installation script automatically detects your user directory and installs:
+- `global_rules.md` - Compact index file (always loaded by Windsurf)
+- `rules-reference/` - Full 22 rule files for detailed guidance
 
 ---
 
@@ -216,11 +220,23 @@ The installation script automatically creates a `.windsurfrules` file. Windsurf 
    - **Linux**: `~/.config/windsurf/global-rules/`
    - **Windows**: `%APPDATA%\Windsurf\global-rules\`
 
+### What Gets Installed
+
+The installation script installs to your Windsurf memories directory:
+
+| Location | Contents |
+|----------|----------|
+| `~/.codeium/windsurf/memories/global_rules.md` | Compact index file (always loaded) |
+| `~/.codeium/windsurf/memories/rules-reference/` | All 22 detailed rule files |
+
+On Windows, `~` is replaced with `%USERPROFILE%` (e.g., `C:\Users\YourName\`).
+
 ### Verifying Rules Are Loaded
 
-1. Open a new Windsurf chat/conversation
-2. Ask: "What rules are you following?"
-3. The AI should reference the 22 development rules (00-21)
+1. Restart Windsurf after installation
+2. Open a new Windsurf chat/conversation
+3. Ask: "What rules are you following?"
+4. The AI should reference the 22 development rules (00-21)
 
 ---
 

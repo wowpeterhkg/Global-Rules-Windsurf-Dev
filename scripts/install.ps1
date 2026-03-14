@@ -16,6 +16,11 @@ $VersionFile = Join-Path $ProjectRoot "VERSION"
 $UsersDir = Join-Path $ProjectRoot ".users"
 $TeamsDir = Join-Path $ProjectRoot ".teams"
 
+# Windsurf Global Rules paths (dynamic based on current user)
+$WindsurfMemoriesDir = Join-Path $env:USERPROFILE ".codeium\windsurf\memories"
+$WindsurfRulesRefDir = Join-Path $WindsurfMemoriesDir "rules-reference"
+$WindsurfGlobalRulesFile = Join-Path $WindsurfMemoriesDir "global_rules.md"
+
 # Helper functions
 function Write-Header {
     param([string]$Title)
@@ -56,7 +61,82 @@ function Create-Directories {
     $WorkflowsDir = Join-Path $ProjectRoot ".windsurf" "workflows"
     New-Item -ItemType Directory -Path $WorkflowsDir -Force | Out-Null
     
+    # Create Windsurf global rules directories
+    New-Item -ItemType Directory -Path $WindsurfMemoriesDir -Force | Out-Null
+    New-Item -ItemType Directory -Path $WindsurfRulesRefDir -Force | Out-Null
+    
     Write-Success "Directory structure created"
+}
+
+# Install Windsurf Global Rules
+function Install-WindsurfGlobalRules {
+    Write-Header "Installing Windsurf Global Rules"
+    
+    # Copy all rule files to rules-reference folder
+    $RulesSourceDir = Join-Path $ProjectRoot "rules"
+    if (Test-Path $RulesSourceDir) {
+        Copy-Item -Path "$RulesSourceDir\*.md" -Destination $WindsurfRulesRefDir -Force
+        $RuleCount = (Get-ChildItem -Path $WindsurfRulesRefDir -Filter "*.md").Count
+        Write-Success "Copied $RuleCount rule files to rules-reference"
+    } else {
+        Write-Warning "Rules source directory not found: $RulesSourceDir"
+    }
+    
+    # Create global_rules.md index file
+    $GlobalRulesContent = @"
+# Global Development Rules
+
+Follow these rules for ALL projects. For detailed guidance, read the individual rule files.
+
+**Repository:** https://github.com/wowpeterhkg/Global-Rules-Windsurf-Dev
+
+## Rule Index (00-21)
+
+Read detailed rules from: ``~/.codeium/windsurf/memories/rules-reference/``
+
+| Rule | File | Summary |
+|------|------|---------|
+| 00 | ``00-quality-over-speed.md`` | Correct architecture over shortcuts |
+| 01 | ``01-single-source-truth.md`` | One authoritative planning location |
+| 02 | ``02-team-workflow.md`` | Team tracking + Solo Mode |
+| 03 | ``03-work-boundaries.md`` | Before/During/After work checklists |
+| 04 | ``04-regression-protection.md`` | Baseline before changes |
+| 05 | ``05-breaking-changes.md`` | Clean breaks over compatibility hacks |
+| 06 | ``06-code-cleanliness.md`` | No dead code, tracked TODOs |
+| 07 | ``07-ask-questions-early.md`` | Never guess on major decisions |
+| 08 | ``08-quick-reference.md`` | At-a-glance summary |
+| 09 | ``09-communication.md`` | Clear, direct, actionable |
+| 10 | ``10-code-generation.md`` | Runnable code with all deps |
+| 11 | ``11-security.md`` | OWASP Top 10, AES-256, TLS 1.2+ |
+| 12 | ``12-error-handling.md`` | Fail-secure, structured logging |
+| 13 | ``13-tool-usage.md`` | Strategic tool selection |
+| 14 | ``14-architecture.md`` | Truthseeker mindset, ADRs |
+| 15 | ``15-dependencies.md`` | Well-maintained packages only |
+| 16 | ``16-code-review.md`` | Security-focused reviews |
+| 17 | ``17-testing.md`` | Minimal mocking, explicit sync |
+| 18 | ``18-development-workflow.md`` | Versioning, changelog, CI/CD |
+| 19 | ``19-async-events.md`` | Never time-based synchronization |
+| 20 | ``20-infrastructure.md`` | Docker, databases, port selection |
+| 21 | ``21-documentation.md`` | docs/ folder structure |
+
+## Quick Reminders
+
+**Before Starting:** Read SSOT, check handoff notes, understand objective
+
+**Security:** Parameterized queries, validate inputs, no hardcoded secrets
+
+**Infrastructure:** Docker, PostgreSQL/Redis/LevelDB, confirm ports
+
+**Before Finishing:** Verify no regressions, update docs, create handoff notes
+"@
+    
+    Set-Content -Path $WindsurfGlobalRulesFile -Value $GlobalRulesContent
+    Write-Success "Global rules index created at: $WindsurfGlobalRulesFile"
+    
+    Write-Host ""
+    Write-Host "Windsurf Global Rules installed to:" -ForegroundColor Cyan
+    Write-Host "  • Global rules: $WindsurfGlobalRulesFile" -ForegroundColor Gray
+    Write-Host "  • Rule files:   $WindsurfRulesRefDir" -ForegroundColor Gray
 }
 
 # User registration
@@ -397,6 +477,7 @@ function Main {
     
     # Installation steps
     Create-Directories
+    Install-WindsurfGlobalRules
     $UserInfo = Register-User
     Update-UserRegistry -UserInfo $UserInfo
     Copy-ProjectFiles
