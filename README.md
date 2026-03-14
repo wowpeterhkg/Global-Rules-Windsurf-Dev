@@ -59,12 +59,12 @@ This repository contains **22 streamlined rules** that merge the Universal AI Te
 
 #### Unix/Linux/macOS
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-org/ai-dev-global-rules/main/scripts/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/wowpeterhkg/Global-Rules-Windsurf-Dev/main/scripts/install.sh | bash
 ```
 
 #### Windows (PowerShell)
 ```powershell
-irm https://raw.githubusercontent.com/your-org/ai-dev-global-rules/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/wowpeterhkg/Global-Rules-Windsurf-Dev/main/scripts/install.ps1 | iex
 ```
 
 ### What Installation Collects
