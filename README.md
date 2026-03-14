@@ -4,38 +4,39 @@ A comprehensive, unified framework for AI software development teams combining q
 
 ## Overview
 
-This repository contains **25 unified rules** that merge the Universal AI Team Rulebook with enterprise-grade development standards. The framework ensures consistent, high-quality development across AI teams while maintaining security, traceability, and collaboration excellence.
+This repository contains **20 streamlined rules** that merge the Universal AI Team Rulebook with enterprise-grade development standards. The framework ensures consistent, high-quality development across AI teams while maintaining security, traceability, and collaboration excellence.
 
 ## Rule Structure
 
-### Foundation Rules (0-11) - Universal AI Team Principles
-- **Rule 0** - Quality Over Speed
-- **Rule 1** - Single Source of Truth (SSOT)
-- **Rule 2** - Team Registration & Identity
-- **Rule 3** - Before Starting Work
-- **Rule 4** - Behavioral Regression Protection
-- **Rule 5** - Breaking Changes > Fragile Compatibility
-- **Rule 6** - No Dead Code
-- **Rule 7** - Modular Refactoring
-- **Rule 8** - Ask Questions Early
-- **Rule 9** - Maximize Context Window
-- **Rule 10** - Before Finishing
-- **Rule 11** - TODO Tracking
+### Foundation Rules (00-07) - Core Principles
+- **Rule 00** - Quality Over Speed
+- **Rule 01** - Single Source of Truth (SSOT)
+- **Rule 02** - Team Workflow (+ Solo Mode)
+- **Rule 03** - Work Boundaries (Before/During/After)
+- **Rule 04** - Regression Protection
+- **Rule 05** - Breaking Changes
+- **Rule 06** - Code Cleanliness (No Dead Code + TODO Tracking)
+- **Rule 07** - Ask Questions Early
 
-### Enhanced Standards (12-24) - Enterprise Development Practices
-- **Rule 12** - Universal Quick Reference
-- **Rule 13** - Communication Guidelines
-- **Rule 14** - Code Generation Standards
-- **Rule 15** - Security Standards
-- **Rule 16** - Error Handling & Logging
-- **Rule 17** - Tool Usage Guidelines
-- **Rule 18** - Architecture Principles (Truthseeker)
-- **Rule 19** - Dependency Management
-- **Rule 20** - Code Review Requirements
-- **Rule 21** - Testing Standards
-- **Rule 22** - Development Workflow
-- **Rule 23** - Frontend Error Handling
-- **Rule 24** - Async Event Handling
+### Reference & Communication (08-09)
+- **Rule 08** - Quick Reference
+- **Rule 09** - Communication
+
+### Code Standards (10-12)
+- **Rule 10** - Code Generation
+- **Rule 11** - Security Standards
+- **Rule 12** - Error Handling (Backend + Frontend)
+
+### Development Practices (13-21)
+- **Rule 13** - Tool Usage
+- **Rule 14** - Architecture (Truthseeker)
+- **Rule 15** - Dependencies
+- **Rule 16** - Code Review
+- **Rule 17** - Testing
+- **Rule 18** - Development Workflow
+- **Rule 19** - Async Events
+- **Rule 20** - Infrastructure & Deployment
+- **Rule 21** - Project Documentation
 
 ## Quick Start
 
